@@ -39,7 +39,7 @@ N --> O[Baseline Evaluation]
 
 M --> P[Metrics and Visualization]
 O --> P
-````
+```
 
 ---
 
@@ -51,6 +51,33 @@ The model is an LSTM Autoencoder:
 * Latent space: linear projection of final hidden state
 * Decoder: LSTM receives repeated latent-conditioned input
 * Output: reconstructed sequence
+
+### LSTM Autoencoder Structure
+
+```mermaid
+flowchart LR
+
+    A["Input Sequence"]:::io
+
+    B["Encoder LSTM"]:::model
+
+    C["Latent Vector"]:::latent
+
+    D["Decoder LSTM"]:::model
+
+    E["Reconstructed Output"]:::io
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+
+    %% ===== DARK COLORS =====
+
+    classDef io fill:#1565C0,stroke:#0D47A1,color:#FFFFFF,stroke-width:2px;
+    classDef model fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,stroke-width:2px;
+    classDef latent fill:#F9A825,stroke:#F57F17,color:#000000,stroke-width:2px;
+```
 
 ---
 
