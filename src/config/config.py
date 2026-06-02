@@ -1,8 +1,9 @@
+# ---- IMPORTS ---- #
 import numpy as np
 
 CONFIG = {
 
-    # ---- MODEL SEARCH SPACE ----
+    # ---- MODEL SEARCH SPACE ---- #
     "search_space": {
         "hidden_dim": [128],
         "latent_dim": [4],
@@ -10,7 +11,7 @@ CONFIG = {
         "seq_len": np.arange(64, 352, 32)
     },
 
-    # ---- TRAINING ----
+    # ---- TRAINING ---- #
     "train": {
         "epochs": 50,
         "batch_size": 64,
@@ -21,6 +22,6 @@ CONFIG = {
         "min_lr": 1e-6
     },
 
-    # ---- THRESHOLD SEARCH ----
+    # ---- THRESHOLD SEARCH ---- #
     "threshold_percentiles": np.arange(30, 100, 1)
 }

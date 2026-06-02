@@ -1,9 +1,12 @@
+# ---- IMPORTS ---- #
 import torch
 import torch.nn as nn
 
 
+# ---- LSTM AUTOENCODER ---- #
 class LSTMAutoencoder(nn.Module):
 
+    # ---- INIT MODEL ---- #
     def __init__(self, input_dim=1, hidden_dim=64, latent_dim=16, num_layers=1):
         super().__init__()
 
@@ -28,20 +31,26 @@ class LSTMAutoencoder(nn.Module):
 
         self.output_layer = nn.Linear(hidden_dim, input_dim)
 
+    # ---- FORWARD PASS ---- #
     def forward(self, x):
 
+        # ---- ENCODE ---- #
         _, (h, _) = self.encoder(x)
 
+        # ---- LATENT SPACE ---- #
         z = self.to_latent(h[-1])
 
+        # ---- DECODE INIT ---- #
         h_dec = self.from_latent(z)
 
         seq_len = x.shape[1]
         dec_in = h_dec.unsqueeze(1).repeat(1, seq_len, 1)
 
+        # ---- HIDDEN STATE INIT ---- #
         h0 = h_dec.unsqueeze(0).repeat(self.num_layers, 1, 1)
         c0 = torch.zeros_like(h0)
 
+        # ---- DECODER ---- #
         out, _ = self.decoder(dec_in, (h0, c0))
 
         return self.output_layer(out)

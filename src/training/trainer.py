@@ -1,14 +1,16 @@
+# ---- IMPORTS ---- #
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
 
+# ---- TRAIN LOOP ---- #
 def train(model, x_train, config, device):
 
+    # ---- DEVICE SETUP ---- #
     model = model.to(device)
 
     opt = torch.optim.Adam(model.parameters(), lr=config["lr"])
-
     loss_fn = nn.MSELoss()
 
     loader = DataLoader(
@@ -18,12 +20,15 @@ def train(model, x_train, config, device):
 
     train_losses = []
 
+    # ---- EPOCH LOOP ---- #
     for ep in range(config["epochs"]):
 
         model.train()
         total = 0
 
+        # ---- BATCH LOOP ---- #
         for (b,) in loader:
+
             b = b.to(device)
 
             loss = loss_fn(model(b), b)

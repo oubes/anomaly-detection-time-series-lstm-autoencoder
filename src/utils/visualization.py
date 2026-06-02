@@ -1,9 +1,12 @@
+# ---- IMPORTS ---- #
 import matplotlib.pyplot as plt
 import numpy as np
 
 
+# ---- PLOT RESULTS ---- #
 def plot_results(series, labels, errors, thr, title=""):
 
+    # ---- SIGNAL PLOT ---- #
     plt.figure(figsize=(12, 4))
     plt.plot(series)
 
@@ -18,6 +21,7 @@ def plot_results(series, labels, errors, thr, title=""):
     plt.grid()
     plt.show()
 
+    # ---- ERROR PLOT ---- #
     plt.figure(figsize=(12, 4))
     plt.plot(errors)
     plt.axhline(thr, color="red", linestyle="--")

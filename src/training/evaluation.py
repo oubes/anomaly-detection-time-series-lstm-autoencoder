@@ -1,12 +1,16 @@
+# ---- IMPORTS ---- #
 import numpy as np
 import torch
 from sklearn.metrics import precision_score, recall_score, f1_score
 
 
+# ---- ERROR COMPUTATION ---- #
 def get_errors(model, x, device):
 
+    # ---- MODEL EVAL MODE ---- #
     model.eval()
 
+    # ---- DATALOADER ---- #
     loader = torch.utils.data.DataLoader(
         torch.utils.data.TensorDataset(torch.tensor(x)),
         batch_size=256
@@ -14,6 +18,7 @@ def get_errors(model, x, device):
 
     errs = []
 
+    # ---- INFERENCE ---- #
     with torch.no_grad():
         for (b,) in loader:
 
@@ -26,8 +31,10 @@ def get_errors(model, x, device):
     return torch.cat(errs).numpy()
 
 
+# ---- CLASSIFICATION METRICS ---- #
 def metrics(y_true, scores, thr):
 
+    # ---- BINARY PREDICTION ---- #
     pred = (scores > thr).astype(int)
 
     return (
