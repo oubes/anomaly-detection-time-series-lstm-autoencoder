@@ -109,10 +109,12 @@ $$
 
 ## Training Strategy
 
+* Fixed Seed: 42 (for reproducibility)
 * Train only on normal windows
-* Testing using Full data
+* Testing using full data
 * Optimizer: Adam
-* Loss: MSE
+* Learning Rate Scheduler: ReduceLROnPlateau
+* Loss: Mean Squared Error (MSE)
 
 ---
 
@@ -121,7 +123,7 @@ $$
 ```python
 CONFIG = {
     "search_space": {
-        "hidden_dim": [128],
+        "hidden_dim": [64, 128],
         "latent_dim": [4],
         "num_layers": [1],
         "seq_len": np.arange(64, 320, 32)
